@@ -1,5 +1,5 @@
 {
-	"name" : "Berkas Client",
+	"name" : "braga\\berkascli",
 	"description" : "Bilioteka dostępowa do serwisu Berkas",
 	"type" : "library",
 	"authors" : [{
