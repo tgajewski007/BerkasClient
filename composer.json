@@ -1,0 +1,20 @@
+{
+	"name" : "Berkas Client",
+	"description" : "Bilioteka dostępowa do serwisu Berkas",
+	"type" : "library",
+	"authors" : [{
+			"name" : "Tomasz Gajewski",
+			"email" : "tgajewski007@gmail.com",
+			"role" : "design & development "
+		}
+	],
+	"require" : {
+		"lcobucci/jwt" : "~3.2",
+		"braga/tools" : "~2.2"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"braga\\berkascli\\" : "src"
+		}
+	}
+}
