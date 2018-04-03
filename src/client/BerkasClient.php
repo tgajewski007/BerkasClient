@@ -117,7 +117,7 @@ class BerkasClient
 		$output = curl_exec($c);
 
 		curl_close($c);
-		$tmp = json_encode($output);
+		$tmp = json_decode($output);
 		/** @var ApiOneTimeResourceUrl $tmp */
 		header("Location: " . $tmp->oneTimeUrl);
 		exit();
@@ -141,7 +141,7 @@ class BerkasClient
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		$output = curl_exec($c);
 		curl_close($c);
-		return json_encode($output);
+		return json_decode($output);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
@@ -168,7 +168,7 @@ class BerkasClient
 		$output = curl_exec($c);
 
 		curl_close($c);
-		return json_encode($output);
+		return json_decode($output);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }
