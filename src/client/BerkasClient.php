@@ -118,9 +118,16 @@ class BerkasClient
 
 		curl_close($c);
 		$tmp = json_decode($output);
-		/** @var ApiOneTimeResourceUrl $tmp */
-		header("Location: " . $tmp->oneTimeUrl);
-		exit();
+		/** @var \braga\berkascli\api\types\ApiOneTimeResourceUrl $tmp */
+		if(isset($tmp->oneTimeUrl))
+		{
+			header("Location: " . $tmp->oneTimeUrl);
+			exit();
+		}
+		else
+		{
+			throw new \Exception($tmp->description);
+		}
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	public function save(UploadFileManager $file)
