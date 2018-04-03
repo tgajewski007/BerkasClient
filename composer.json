@@ -10,7 +10,10 @@
 	],
 	"require" : {
 		"lcobucci/jwt" : "~3.2",
-		"braga/tools" : "~2.2"
+		"braga/tools" : "~2.2",
+		"php" : "~5.6",
+		"ext-mbstring" : "*",
+		"ext-curl" : "*"
 	},
 	"autoload" : {
 		"psr-4" : {
