@@ -63,7 +63,7 @@ class BerkasClient
 	 * @param double $idBerkasResource
 	 * @return ApiResource
 	 */
-	public function get($idBerkasResource): ApiResource
+	public function get($idBerkasResource)
 	{
 		$tmp = $this->curlGet("resource/" . $idBerkasResource);
 		/** @var ApiResourceComm $tmp  */
@@ -81,7 +81,7 @@ class BerkasClient
 	 * @param double $idBerkasResource
 	 * @return ApiResourceSimple
 	 */
-	public function meta($idBerkasResource): ApiResourceSimple
+	public function meta($idBerkasResource)
 	{
 		$tmp = $this->curlGet("metaResource/" . $idBerkasResource);
 		/** @var ApiResourceSimple $tmp  */
@@ -123,7 +123,7 @@ class BerkasClient
 		exit();
 	}
 	// -----------------------------------------------------------------------------------------------------------------
-	public function save(UploadFileManager $file): ApiResourceSimple
+	public function save(UploadFileManager $file)
 	{
 		$tmp = $this->curlUploadFile($file);
 		$retval = new ApiResourceSimple();

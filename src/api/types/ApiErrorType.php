@@ -21,7 +21,7 @@ class ApiErrorType
 	 */
 	public $description;
 	// -----------------------------------------------------------------------------------------------------------------
-	public static function convertFromException(\Throwable $e)
+	public static function convertFromException(\Exception $e)
 	{
 		$retval = new self();
 		$retval->number = $e->getCode();
