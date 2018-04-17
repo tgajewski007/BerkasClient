@@ -133,12 +133,19 @@ class BerkasClient
 	public function save(UploadFileManager $file)
 	{
 		$tmp = $this->curlUploadFile($file);
-		$retval = new ApiResourceSimple();
-		$retval->contentType = $tmp->contentType;
-		$retval->createDate = $tmp->createDate;
-		$retval->idResource = $tmp->idResource;
-		$retval->name = $tmp->name;
-		return $retval;
+		if(isset($tmp->idResource))
+		{
+			$retval = new ApiResourceSimple();
+			$retval->contentType = $tmp->contentType;
+			$retval->createDate = $tmp->createDate;
+			$retval->idResource = $tmp->idResource;
+			$retval->name = $tmp->name;
+			return $retval;
+		}
+		else
+		{
+			throw new \Exception("BR:10001 Błąd zapisania załącznika", 10001);
+		}
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	private function curlGet($url)
