@@ -172,7 +172,7 @@ class BerkasClient
 		$url = $this->baseUrl . "resource";
 		$postData = array();
 		$postData["file"] = curl_file_create($file->getTemporaryFilename(), $file->getMimeType(), $file->getOrginalFilename());
-		$postData["md5"] = md5($file->getContent());
+		$postData["md5"] = md5(file_get_contents($file->getTemporaryFilename()));
 
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $url);
