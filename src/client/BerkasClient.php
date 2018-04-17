@@ -142,9 +142,13 @@ class BerkasClient
 			$retval->name = $tmp->name;
 			return $retval;
 		}
+		elseif(isset($tmp->errNumber))
+		{
+			throw new \Exception("BR:" . $tmp->errNumber . " " . $tmp->errDescription, $tmp->errNumber);
+		}
 		else
 		{
-			throw new \Exception("BR:10001 Błąd zapisania załącznika", 10001);
+			throw new \Exception("BR:90001 Błąd zapisania załącznika", 90000);
 		}
 	}
 	// -----------------------------------------------------------------------------------------------------------------
@@ -168,6 +172,7 @@ class BerkasClient
 		$url = $this->baseUrl . "resource";
 		$postData = array();
 		$postData["file"] = curl_file_create($file->getTemporaryFilename(), $file->getMimeType(), $file->getOrginalFilename());
+		$postData["md5"] = md5($file->getContent());
 
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $url);
