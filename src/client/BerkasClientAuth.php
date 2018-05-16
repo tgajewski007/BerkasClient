@@ -141,7 +141,7 @@ class BerkasClientAuth
 		$token->setIssuer($this->getIssuer());
 		$token->setAudience($this->getAudiance());
 		$token->setId($this->getTokenSerial());
-		$token->setIssuedAt(time());
+		$token->setIssuedAt(time() - 10);
 		$token->setNotBefore(time() - 10);
 		$token->setExpiration(time() + $this->getValidateMinues() * 60);
 		$token->set('uid', $this->getUserName());
