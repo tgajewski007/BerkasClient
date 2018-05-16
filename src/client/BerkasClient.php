@@ -115,7 +115,8 @@ class BerkasClient
 		curl_setopt($c, CURLOPT_POSTFIELDS, $postData);
 
 		$output = curl_exec($c);
-
+		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
+		\Logger::getLogger("braga")->trace("RES:" . $output);
 		curl_close($c);
 		$tmp = json_decode($output);
 		/** @var \braga\berkascli\api\types\ApiOneTimeResourceUrl $tmp */
@@ -158,6 +159,8 @@ class BerkasClient
 		curl_setopt($c, CURLOPT_URL, $this->getBaseUrl() . $url);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		$output = curl_exec($c);
+		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
+		\Logger::getLogger("braga")->trace("RES:" . $output);
 		curl_close($c);
 		return json_decode($output);
 	}
@@ -185,6 +188,8 @@ class BerkasClient
 		curl_setopt($c, CURLOPT_POSTFIELDS, $postData);
 
 		$output = curl_exec($c);
+		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
+		\Logger::getLogger("braga")->trace("RES:" . $output);
 
 		curl_close($c);
 		return json_decode($output);
