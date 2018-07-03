@@ -15,7 +15,7 @@ class BerkasClientAuth
 {
 	// -----------------------------------------------------------------------------------------------------------------
 	protected $userName;
-	protected $privateKeyFileName;
+	protected $privateKey;
 	protected $issuer;
 	protected $audiance;
 	protected $tokenSerial;
@@ -106,9 +106,9 @@ class BerkasClientAuth
 	 *
 	 * @return mixed
 	 */
-	public function getPrivateKeyFileName()
+	public function getPrivateKey()
 	{
-		return $this->privateKeyFileName;
+		return $this->privateKey;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
@@ -122,11 +122,11 @@ class BerkasClientAuth
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 *
-	 * @param mixed $privateKeyFileName
+	 * @param mixed $privateKey
 	 */
-	public function setPrivateKeyFileName($privateKeyFileName)
+	public function setPrivateKey($privateKey)
 	{
-		$this->privateKeyFileName = $privateKeyFileName;
+		$this->privateKey = $privateKey;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
@@ -136,7 +136,7 @@ class BerkasClientAuth
 	public function getJWT()
 	{
 		$signer = new Sha512();
-		$key = new Key(file_get_contents($this->getPrivateKeyFileName()));
+		$key = new Key($this->getPrivateKey());
 		$token = new Builder();
 		$token->setIssuer($this->getIssuer());
 		$token->setAudience($this->getAudiance());
