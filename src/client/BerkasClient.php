@@ -17,13 +17,11 @@ class BerkasClient
 	// -----------------------------------------------------------------------------------------------------------------
 	protected $baseUrl = "https://berkas.pl/";
 	/**
-	 *
 	 * @var BerkasClientAuth
 	 */
 	protected $auth;
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return \braga\berkascli\client\BerkasClientAuth
 	 */
 	public function getAuth()
@@ -32,7 +30,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param \braga\berkascli\client\BerkasClientAuth $auth
 	 */
 	public function setAuth(BerkasClientAuth $auth)
@@ -41,7 +38,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return string
 	 */
 	public function getBaseUrl()
@@ -50,7 +46,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param string $baseUrl
 	 */
 	public function setBaseUrl($baseUrl)
@@ -59,7 +54,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param double $idBerkasResource
 	 * @return ApiResource
 	 */
@@ -77,7 +71,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param double $idBerkasResource
 	 * @return ApiResourceSimple
 	 */
@@ -94,7 +87,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param double $idBerkasResource
 	 */
 	public function sendDownloadHeaderToBrowser($idBerkasResource)
@@ -157,6 +149,8 @@ class BerkasClient
 	{
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $this->getBaseUrl() . $url);
+		curl_setopt($c, CURLOPT_HTTPHEADER, [
+						"Authorization: bearer " . $this->getAuth()->getJWT()->__toString() ]);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		$output = curl_exec($c);
 		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
@@ -166,7 +160,6 @@ class BerkasClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param UploadFileManager $file
 	 * @return ApiResourceSimple
 	 */
