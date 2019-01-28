@@ -22,7 +22,6 @@ class BerkasClientAuth
 	protected $validateMinues;
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getIssuer()
@@ -31,7 +30,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getAudiance()
@@ -40,7 +38,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getTokenSerial()
@@ -49,7 +46,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getValidateMinues()
@@ -58,7 +54,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $issuer
 	 */
 	public function setIssuer($issuer)
@@ -67,7 +62,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $audiance
 	 */
 	public function setAudiance($audiance)
@@ -76,7 +70,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $tokenSerial
 	 */
 	public function setTokenSerial($tokenSerial)
@@ -85,7 +78,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $validateMinues
 	 */
 	public function setValidateMinues($validateMinues)
@@ -94,7 +86,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getUserName()
@@ -103,7 +94,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return mixed
 	 */
 	public function getPrivateKey()
@@ -112,7 +102,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $userName
 	 */
 	public function setUserName($userName)
@@ -121,7 +110,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @param mixed $privateKey
 	 */
 	public function setPrivateKey($privateKey)
@@ -130,7 +118,6 @@ class BerkasClientAuth
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 *
 	 * @return \Lcobucci\JWT\Token
 	 */
 	public function getJWT()
@@ -141,8 +128,8 @@ class BerkasClientAuth
 		$token->setIssuer($this->getIssuer());
 		$token->setAudience($this->getAudiance());
 		$token->setId($this->getTokenSerial());
-		$token->setIssuedAt(time() - 10);
-		$token->setNotBefore(time() - 10);
+		$token->setIssuedAt(time() - 60);
+		$token->setNotBefore(time() - 60);
 		$token->setExpiration(time() + $this->getValidateMinues() * 60);
 		$token->set('uid', $this->getUserName());
 		$token->sign($signer, $key);
