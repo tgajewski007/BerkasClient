@@ -135,7 +135,7 @@ class BerkasClientAuth
 		$token->expiresAt(time() + $this->getValidateMinues() * 60);
 		$token->withClaim('uid', $this->getUserName());
 		$token->withClaim("typ", "Bearer");
-		$token->withHeader("kid", "berkascli");
+		$token->withHeader("kid", $this->getUserName());
 		return $token->getToken($signer, $key);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
