@@ -1,5 +1,7 @@
 <?php
+
 namespace braga\berkascli\client;
+
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha512;
@@ -125,15 +127,16 @@ class BerkasClientAuth
 		$signer = new Sha512();
 		$key = new Key($this->getPrivateKey());
 		$token = new Builder();
-		$token->setIssuer($this->getIssuer());
-		$token->setAudience($this->getAudiance());
-		$token->setId($this->getTokenSerial());
-		$token->setIssuedAt(time() - 60);
-		$token->setNotBefore(time() - 60);
-		$token->setExpiration(time() + $this->getValidateMinues() * 60);
-		$token->set('uid', $this->getUserName());
-		$token->sign($signer, $key);
-		return $token->getToken();
+		$token->issuedBy($this->getIssuer());
+		$token->permittedFor($this->getAudiance());
+		$token->identifiedBy($this->getTokenSerial());
+		$token->issuedAt(time() - 60);
+		$token->canOnlyBeUsedAfter(time() - 60);
+		$token->expiresAt(time() + $this->getValidateMinues() * 60);
+		$token->withClaim('uid', $this->getUserName());
+		$token->withClaim("typ", "Bearer");
+		$token->withHeader("kid", "berkascli");
+		return $token->getToken($signer, $key);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }

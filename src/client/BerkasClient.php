@@ -1,9 +1,12 @@
 <?php
+
 namespace braga\berkascli\client;
+
 use braga\berkascli\api\request\RegisterDownloadAliasRequest;
 use braga\berkascli\api\types\ApiResource;
 use braga\berkascli\api\types\ApiResourceSimple;
 use braga\tools\tools\UploadFileManager;
+use braga\berkascli\api\types\ApiResourceComm;
 
 /**
  * Created on 2 kwi 2018 22:15:36

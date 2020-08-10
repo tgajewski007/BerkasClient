@@ -10,8 +10,8 @@
 	],
 	"require" : {
 		"lcobucci/jwt" : "~3.2",
-		"braga/tools" : "~2.2",
-		"php" : ">=5.6",
+		"braga/tools" : "~3.0",
+		"php" : ">=7.2",
 		"ext-mbstring" : "*",
 		"ext-curl" : "*"
 	},
