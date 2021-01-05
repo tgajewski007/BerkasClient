@@ -47,7 +47,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function registerOneTimeUrl($idBerkasResource)
 	{
-		$url = $this->baseUrl . "registerDownloadAlias";
+		$url = $this->baseUrl . "/registerDownloadAlias";
 		$body = new RegisterDownloadAliasRequest();
 		$body->idResource = $idBerkasResource;
 		$body->ipAddress = getRemoteIp();
@@ -66,7 +66,7 @@ class BerkasClient extends ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	public function save(UploadFileManager $file)
 	{
-		$url = $this->baseUrl . "resource/";
+		$url = $this->baseUrl . "/resource";
 		$multipart = array();
 
 		$tmp = array();
