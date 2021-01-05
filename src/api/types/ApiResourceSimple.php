@@ -20,7 +20,7 @@ class ApiResourceSimple
 	 * @param ApiResourceSimple $tmp
 	 * @return \braga\berkascli\api\types\ApiResourceSimple|\braga\berkascli\api\types\ApiResource
 	 */
-	public static function convert(ApiResourceSimple $tmp)
+	public static function convert(ApiResourceComm $tmp)
 	{
 		$retval = new static();
 		$retval->contentType = $tmp->contentType;
