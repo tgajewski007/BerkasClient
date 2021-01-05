@@ -23,7 +23,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function resource($idBerkasResource)
 	{
-		$url = $this->baseUrl . "/resource/" . $idBerkasResource;
+		$url = "/resource/" . $idBerkasResource;
 		$res = $this->get($url);
 		$tmp = $this->inteprete($res, ApiResourceComm::class, 200);
 		$retval = ApiResource::convert($tmp);
@@ -36,7 +36,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function metaResource($idBerkasResource)
 	{
-		$url = $this->baseUrl . "/metaResource/" . $idBerkasResource;
+		$url = "/metaResource/" . $idBerkasResource;
 		$res = $this->get($url);
 		return $this->inteprete($res, ApiResourceSimple::class, 200);
 	}
@@ -47,7 +47,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function registerOneTimeUrl($idBerkasResource)
 	{
-		$url = $this->baseUrl . "/registerDownloadAlias";
+		$url = "/registerDownloadAlias";
 		$body = new RegisterDownloadAliasRequest();
 		$body->idResource = $idBerkasResource;
 		$body->ipAddress = getRemoteIp();
@@ -66,7 +66,7 @@ class BerkasClient extends ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	public function save(UploadFileManager $file)
 	{
-		$url = $this->baseUrl . "/resource";
+		$url = "/resource";
 		$multipart = array();
 
 		$tmp = array();
