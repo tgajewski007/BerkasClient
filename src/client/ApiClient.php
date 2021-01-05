@@ -22,8 +22,15 @@ class ApiClient
 	 * @var BerkasClientAuth
 	 */
 	protected $auth;
-	protected $logClassName = BaseLogger::class;
-	protected $baseUrl = "https://berkas.pl";
+	protected $logClassName;
+	protected $baseUrl;
+	// -----------------------------------------------------------------------------------------------------------------
+	function __construct($baseUrl, $logClassName = BaseLogger::class)
+	{
+		$this->baseUrl = $baseUrl;
+		$this->logClassName = $logClassName;
+		$this->client = new Client();
+	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param string $logClassName
@@ -55,12 +62,6 @@ class ApiClient
 	public function setAuth(BerkasClientAuth $auth)
 	{
 		$this->auth = $auth;
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	function __construct($baseUrl)
-	{
-		$this->baseUrl = $baseUrl;
-		$this->client = new Client();
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
