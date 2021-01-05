@@ -16,12 +16,18 @@ class ApiResourceSimple
 	public $name;
 	public $contentType;
 	// -----------------------------------------------------------------------------------------------------------------
-	function __construct(ApiResourceSimple $tmp)
+	/**
+	 * @param ApiResourceSimple $tmp
+	 * @return \braga\berkascli\api\types\ApiResourceSimple|\braga\berkascli\api\types\ApiResource
+	 */
+	public static function convert(ApiResourceSimple $tmp)
 	{
-		$this->contentType = $tmp->contentType;
-		$this->createDate = $tmp->createDate;
-		$this->idResource = $tmp->idResource;
-		$this->name = $tmp->name;
+		$retval = new static();
+		$retval->contentType = $tmp->contentType;
+		$retval->createDate = $tmp->createDate;
+		$retval->idResource = $tmp->idResource;
+		$retval->name = $tmp->name;
+		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }

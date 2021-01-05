@@ -12,10 +12,11 @@ class ApiResource extends ApiResourceSimple
 	// -----------------------------------------------------------------------------------------------------------------
 	public $content;
 	// -----------------------------------------------------------------------------------------------------------------
-	function __construct(ApiResourceComm $tmp)
+	public static function convert(ApiResourceComm $tmp)
 	{
-		parent::__construct($tmp);
-		$this->content = base64_decode($tmp->base64Content);
+		$retval = parent::convert($tmp);
+		$retval->content = base64_decode($tmp->base64Content);
+		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }
