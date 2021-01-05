@@ -71,12 +71,21 @@ class BerkasClient extends ApiClient
 
 		$tmp = array();
 		$tmp["name"] = "file";
-		$tmp["contents"] = file_get_contents($file->getTemporaryFilename());
 		$tmp["filename"] = $file->getOrginalFilename();
+		if(empty($file->getContent()))
+		{
+			$tmp["contents"] = file_get_contents($file->getTemporaryFilename());
+			$md5 = md5(file_get_contents($file->getTemporaryFilename()));
+		}
+		else
+		{
+			$tmp["contents"] = $file->getContent();
+			$md5 = md5($file->getContent());
+		}
 		$multipart[] = $tmp;
 
 		$query = array();
-		$query["md5"] = md5(file_get_contents($file->getTemporaryFilename()));
+		$query["md5"] = $md5;
 		$res = $this->postMultipart($url, $query, $multipart);
 		return $this->inteprete($res, ApiResourceSimple::class);
 	}
