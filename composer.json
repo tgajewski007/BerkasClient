@@ -22,5 +22,6 @@
 		"psr-4" : {
 			"braga\\berkascli\\" : "src"
 		}
-	}
+	},
+	"license" : "MIT"
 }
