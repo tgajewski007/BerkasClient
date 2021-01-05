@@ -31,6 +31,21 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/guzzlehttp/guzzle/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/guzzlehttp/promises/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/guzzlehttp/psr7/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/lcobucci/jwt/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
@@ -41,12 +56,32 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/netresearch/jsonmapper/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/paragonie/constant_time_encoding/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/psr/http-client/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/psr/http-message/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/psr/log/Psr/Log">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/ralouphie/getallheaders/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>

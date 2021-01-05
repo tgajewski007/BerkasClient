@@ -1,7 +1,5 @@
 <?php
-
 namespace braga\berkascli\client;
-
 use braga\berkascli\api\request\RegisterDownloadAliasRequest;
 use braga\berkascli\api\types\ApiResource;
 use braga\berkascli\api\types\ApiResourceSimple;
@@ -15,80 +13,41 @@ use braga\berkascli\api\types\ApiResourceComm;
  * @package
  *
  */
-class BerkasClient
+class BerkasClient extends ApiClient
 {
-	// -----------------------------------------------------------------------------------------------------------------
-	protected $baseUrl = "https://berkas.pl/";
-	/**
-	 * @var BerkasClientAuth
-	 */
-	protected $auth;
-	// -----------------------------------------------------------------------------------------------------------------
-	/**
-	 * @return \braga\berkascli\client\BerkasClientAuth
-	 */
-	public function getAuth()
-	{
-		return $this->auth;
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	/**
-	 * @param \braga\berkascli\client\BerkasClientAuth $auth
-	 */
-	public function setAuth(BerkasClientAuth $auth)
-	{
-		$this->auth = $auth;
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	/**
-	 * @return string
-	 */
-	public function getBaseUrl()
-	{
-		return $this->baseUrl;
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	/**
-	 * @param string $baseUrl
-	 */
-	public function setBaseUrl($baseUrl)
-	{
-		$this->baseUrl = $baseUrl;
-	}
-	// -----------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param double $idBerkasResource
 	 * @return ApiResource
 	 */
-	public function get($idBerkasResource)
+	public function resource($idBerkasResource)
 	{
-		$tmp = $this->curlGet("resource/" . $idBerkasResource);
-		/** @var ApiResourceComm $tmp  */
-		$retval = new ApiResource();
-		$retval->contentType = $tmp->contentType;
-		$retval->createDate = $tmp->createDate;
-		$retval->idResource = $tmp->idResource;
-		$retval->name = $tmp->name;
-		$retval->content = base64_decode($tmp->base64Content);
+		$url = $this->baseUrl . "/resource/" . $idBerkasResource;
+		$res = $this->get($url);
+		$tmp = $this->inteprete($res, ApiResourceComm::class, 200);
+		$retval = new ApiResource($tmp);
 		return $retval;
 	}
-	// -----------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param double $idBerkasResource
 	 * @return ApiResourceSimple
 	 */
-	public function meta($idBerkasResource)
+	public function metaResource($idBerkasResource)
 	{
-		$tmp = $this->curlGet("metaResource/" . $idBerkasResource);
-		/** @var ApiResourceSimple $tmp  */
-		$retval = new ApiResourceSimple();
-		$retval->contentType = $tmp->contentType;
-		$retval->createDate = $tmp->createDate;
-		$retval->idResource = $tmp->idResource;
-		$retval->name = $tmp->name;
-		return $retval;
+		$url = $this->baseUrl . "/metaResource/" . $idBerkasResource;
+		$res = $this->get($url);
+		return $this->inteprete($res, ApiResourceSimple::class, 200);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * @param double $idBerkasResource
+	 */
+	public function registerOneTimeUrl($idBerkasResource)
+	{
+		;
+	}
+	// ------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param double $idBerkasResource
 	 */
@@ -99,6 +58,7 @@ class BerkasClient
 		$r = new RegisterDownloadAliasRequest();
 		$r->idResource = $idBerkasResource;
 		$r->ipAddress = getRemoteIp();
+
 		$postData["param"] = json_encode($r);
 
 		$c = curl_init();

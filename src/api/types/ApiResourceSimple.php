@@ -16,7 +16,12 @@ class ApiResourceSimple
 	public $name;
 	public $contentType;
 	// -----------------------------------------------------------------------------------------------------------------
-	public $errNumber;
-	public $errDescription;
+	function __construct(ApiResourceSimple $tmp)
+	{
+		$this->contentType = $tmp->contentType;
+		$this->createDate = $tmp->createDate;
+		$this->idResource = $tmp->idResource;
+		$this->name = $tmp->name;
+	}
 	// -----------------------------------------------------------------------------------------------------------------
 }
