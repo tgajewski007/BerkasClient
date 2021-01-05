@@ -5,6 +5,7 @@ use braga\berkascli\api\types\ApiResource;
 use braga\berkascli\api\types\ApiResourceSimple;
 use braga\tools\tools\UploadFileManager;
 use braga\berkascli\api\types\ApiResourceComm;
+use braga\berkascli\api\types\ApiOneTimeResourceUrl;
 
 /**
  * Created on 2 kwi 2018 22:15:36
@@ -42,10 +43,16 @@ class BerkasClient extends ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param double $idBerkasResource
+	 * @return ApiOneTimeResourceUrl
 	 */
 	public function registerOneTimeUrl($idBerkasResource)
 	{
-		;
+		$url = $this->baseUrl . "registerDownloadAlias";
+		$body = new RegisterDownloadAliasRequest();
+		$body->idResource = $idBerkasResource;
+		$body->ipAddress = getRemoteIp();
+		$res = $this->post($url, $body);
+		return $this->inteprete($res, ApiOneTimeResourceUrl::class);
 	}
 	// ------------------------------------------------------------------------------------------------------------------
 	/**
@@ -53,102 +60,25 @@ class BerkasClient extends ApiClient
 	 */
 	public function sendDownloadHeaderToBrowser($idBerkasResource)
 	{
-		$url = $this->baseUrl . "registerDownloadAlias";
-		$postData = array();
-		$r = new RegisterDownloadAliasRequest();
-		$r->idResource = $idBerkasResource;
-		$r->ipAddress = getRemoteIp();
-
-		$postData["param"] = json_encode($r);
-
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $url);
-		curl_setopt($c, CURLOPT_HTTPHEADER, [
-						"Authorization: bearer " . $this->getAuth()->getJWT()->__toString() ]);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($c, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($c, CURLOPT_POSTFIELDS, $postData);
-
-		$output = curl_exec($c);
-		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
-		\Logger::getLogger("braga")->trace("RES:" . $output);
-		curl_close($c);
-		$tmp = json_decode($output);
-		/** @var \braga\berkascli\api\types\ApiOneTimeResourceUrl $tmp */
-		if(isset($tmp->oneTimeUrl))
-		{
-			header("Location: " . $tmp->oneTimeUrl);
-			exit();
-		}
-		else
-		{
-			throw new \Exception($tmp->description);
-		}
+		$i = $this->registerOneTimeUrl($idBerkasResource);
+		header("Location: " . $i->oneTimeUrl);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	public function save(UploadFileManager $file)
 	{
-		$tmp = $this->curlUploadFile($file);
-		if(isset($tmp->idResource))
-		{
-			$retval = new ApiResourceSimple();
-			$retval->contentType = $tmp->contentType;
-			$retval->createDate = $tmp->createDate;
-			$retval->idResource = $tmp->idResource;
-			$retval->name = $tmp->name;
-			return $retval;
-		}
-		elseif(isset($tmp->errNumber))
-		{
-			throw new \Exception("BR:" . $tmp->errNumber . " " . $tmp->errDescription, $tmp->errNumber);
-		}
-		else
-		{
-			throw new \Exception("BR:90001 Błąd zapisania załącznika", 90000);
-		}
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	private function curlGet($url)
-	{
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $this->getBaseUrl() . $url);
-		curl_setopt($c, CURLOPT_HTTPHEADER, [
-						"Authorization: bearer " . $this->getAuth()->getJWT()->__toString() ]);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		$output = curl_exec($c);
-		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
-		\Logger::getLogger("braga")->trace("RES:" . $output);
-		curl_close($c);
-		return json_decode($output);
-	}
-	// -----------------------------------------------------------------------------------------------------------------
-	/**
-	 * @param UploadFileManager $file
-	 * @return ApiResourceSimple
-	 */
-	private function curlUploadFile(UploadFileManager $file)
-	{
-		$url = $this->baseUrl . "resource";
-		$postData = array();
-		$postData["file"] = curl_file_create($file->getTemporaryFilename(), $file->getMimeType(), $file->getOrginalFilename());
-		$postData["md5"] = md5(file_get_contents($file->getTemporaryFilename()));
+		$url = $this->baseUrl . "resource/";
+		$multipart = array();
 
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $url);
-		curl_setopt($c, CURLOPT_HTTPHEADER, array(
-						'Content-Type: multipart/form-data' ));
-		curl_setopt($c, CURLOPT_HTTPHEADER, [
-						"Authorization: bearer " . $this->getAuth()->getJWT()->__toString() ]);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($c, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($c, CURLOPT_POSTFIELDS, $postData);
+		$tmp = array();
+		$tmp["name"] = "file";
+		$tmp["contents"] = file_get_contents($file->getTemporaryFilename());
+		$tmp["filename"] = $file->getOrginalFilename();
+		$multipart[] = $tmp;
 
-		$output = curl_exec($c);
-		\Logger::getLogger("braga")->trace("REQ:" . serialize($c));
-		\Logger::getLogger("braga")->trace("RES:" . $output);
-
-		curl_close($c);
-		return json_decode($output);
+		$query = array();
+		$query["md5"] = md5(file_get_contents($file->getTemporaryFilename()));
+		$res = $this->postMultipart($url, $query, $multipart);
+		return $this->inteprete($res, ApiResourceSimple::class);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }

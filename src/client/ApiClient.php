@@ -14,19 +14,32 @@ class ApiClient
 	 * @var Client
 	 */
 	protected $client;
-	protected $reqId;
 	/**
 	 * @var ResponseInterface
 	 */
 	protected $response;
-	// -----------------------------------------------------------------------------------------------------------------
-	protected $logClassName = BaseLogger::class;
-	// -----------------------------------------------------------------------------------------------------------------
-	protected $baseUrl = "https://berkas.pl";
 	/**
 	 * @var BerkasClientAuth
 	 */
 	protected $auth;
+	protected $logClassName = BaseLogger::class;
+	protected $baseUrl = "https://berkas.pl";
+	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * @param string $logClassName
+	 */
+	public function setLogClassName($logClassName)
+	{
+		$this->logClassName = $logClassName;
+	}
+	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * @param Ambigous <string, unknown> $baseUrl
+	 */
+	public function setBaseUrl($baseUrl)
+	{
+		$this->baseUrl = $baseUrl;
+	}
 	// ----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @return \braga\berkascli\client\BerkasClientAuth
@@ -62,7 +75,7 @@ class ApiClient
 	{
 		$retval = array();
 
-		$retval["Authorization"] = "bearer " . BerkasClientAuth::class;
+		$retval["Authorization"] = "bearer " . $this->getAuth()->getJWT()->__toString();
 		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
@@ -77,6 +90,31 @@ class ApiClient
 		$options["headers"] = $this->getAuthHeaders();
 		$options["body"] = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 		$this->logRequest($url, $options["body"]);
+		try
+		{
+			$this->response = $this->client->post($this->baseUrl . $url, $options);
+			$this->logResponse($url, $this->response);
+		}
+		catch(ServerException $e)
+		{
+			$this->response = $e->getResponse();
+			$this->logResponse($url, $this->response, LoggerService::ERROR);
+		}
+		return $this->response;
+	}
+	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * @param string $url
+	 * @param \stdClass $multipart
+	 * @return \Psr\Http\Message\ResponseInterface
+	 */
+	protected function postMultipart($url, array $query, array $multipart)
+	{
+		$options = array();
+		$options["headers"] = $this->getAuthHeaders();
+		$options["query"] = $query;
+		$options["multipart"] = $multipart;
+		$this->logRequest($url, "");
 		try
 		{
 			$this->response = $this->client->post($this->baseUrl . $url, $options);
