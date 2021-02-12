@@ -25,9 +25,7 @@ class BerkasClient extends ApiClient
 	{
 		$url = "/resource/" . $idBerkasResource;
 		$res = $this->get($url);
-		$tmp = $this->inteprete($res, ApiResourceComm::class, 200);
-		$retval = ApiResource::convert($tmp);
-		return $retval;
+		return $this->inteprete($res, ApiResourceComm::class, 200);
 	}
 	// ------------------------------------------------------------------------------------------------------------------
 	/**
