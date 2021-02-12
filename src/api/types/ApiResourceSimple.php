@@ -15,6 +15,7 @@ class ApiResourceSimple
 	public $createDate;
 	public $name;
 	public $contentType;
+	public $sha256;
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param ApiResourceSimple $tmp
@@ -27,6 +28,7 @@ class ApiResourceSimple
 		$retval->createDate = $tmp->createDate;
 		$retval->idResource = $tmp->idResource;
 		$retval->name = $tmp->name;
+		$retval->sha256 = $tmp->sha256;
 		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
