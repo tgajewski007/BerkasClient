@@ -16,6 +16,7 @@ class ApiResourceSimple
 	public $name;
 	public $contentType;
 	public $sha256;
+	public $size;
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param ApiResourceSimple $tmp
@@ -29,6 +30,7 @@ class ApiResourceSimple
 		$retval->idResource = $tmp->idResource;
 		$retval->name = $tmp->name;
 		$retval->sha256 = $tmp->sha256;
+		$retval->size = $tmp->size;
 		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
