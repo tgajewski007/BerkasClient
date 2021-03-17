@@ -1,8 +1,8 @@
 <?php
 namespace braga\berkascli\client;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa\Sha512;
+use Lcobucci\JWT\Token\Builder;
 use braga\tools\tools\Guid;
 
 /**
@@ -124,14 +124,14 @@ class BerkasClientAuth
 	public function getJWT()
 	{
 		$signer = new Sha512();
-		$key = new Key($this->getPrivateKey());
+		$key = InMemory::plainText($this->getPrivateKey());
 		$token = new Builder();
 		$token->issuedBy($this->getIssuer());
 		$token->permittedFor($this->getAudiance());
 		$token->identifiedBy($this->getTokenSerial());
-		$token->issuedAt(time() - 5);
-		$token->canOnlyBeUsedAfter(time() - 5);
-		$token->expiresAt(time() + $this->getValidateMinues() * 60);
+		$token->issuedAt(new \DateTimeImmutable("now"));
+		$token->canOnlyBeUsedAfter(new \DateTimeImmutable("now"));
+		$token->expiresAt((new \DateTimeImmutable("now"))->add(new \DateInterval("PT60S"))->format("Y-m-d H:i:s"));
 		$token->withHeader("kid", $this->getUserName());
 		$token->withClaim('uid', $this->getUserName());
 		$token->withClaim("typ", "Bearer");

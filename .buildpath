@@ -46,6 +46,11 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/lcobucci/clock/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/lcobucci/jwt/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
