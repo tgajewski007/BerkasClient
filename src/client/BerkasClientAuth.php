@@ -1,10 +1,9 @@
 <?php
 namespace braga\berkascli\client;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa\Sha512;
-use Lcobucci\JWT\Token\Builder;
 use braga\tools\tools\Guid;
-use Lcobucci\JWT\Configuration;
 
 /**
  * Created on 2 kwi 2018 22:56:42
@@ -128,8 +127,7 @@ class BerkasClientAuth
 		$signer = new Sha512();
 		$key = InMemory::plainText($this->getPrivateKey());
 		$verificationKey = InMemory::plainText($this->getPublicKey());
-		$token = new Builder();
-		Configuration::forAsymmetricSigner($signer, $key, $verificationKey)->builder();
+		$token = Configuration::forAsymmetricSigner($signer, $key, $verificationKey)->builder();
 		$token->issuedBy($this->getIssuer());
 		$token->permittedFor($this->getAudiance());
 		$token->identifiedBy($this->getTokenSerial());
