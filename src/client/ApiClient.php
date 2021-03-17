@@ -76,7 +76,7 @@ class ApiClient
 	{
 		$retval = array();
 
-		$retval["Authorization"] = "bearer " . $this->getAuth()->getJWT()->__toString();
+		$retval["Authorization"] = "bearer " . $this->getAuth()->getJWT()->toString();
 		return $retval;
 	}
 	// -----------------------------------------------------------------------------------------------------------------
