@@ -131,8 +131,8 @@ class BerkasClientAuth
 		$token->issuedBy($this->getIssuer());
 		$token->permittedFor($this->getAudiance());
 		$token->identifiedBy($this->getTokenSerial());
-		$token->issuedAt(new \DateTimeImmutable("now"));
-		$token->canOnlyBeUsedAfter(new \DateTimeImmutable("now"));
+		$token->issuedAt(new \DateTimeImmutable(date("Y-m-d H:i:s")));
+		$token->canOnlyBeUsedAfter(new \DateTimeImmutable(date("Y-m-d H:i:s")));
 		$token->expiresAt((new \DateTimeImmutable("now"))->add(new \DateInterval("PT60S")));
 		$token->withHeader("kid", $this->getUserName());
 		$token->withClaim('uid', $this->getUserName());
