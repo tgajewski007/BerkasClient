@@ -9,7 +9,7 @@
 		}
 	],
 	"require" : {
-		"braga/tools" : "~3.2.0",
+		"braga/tools" : "~3.3.0",
 		"php" : ">=7.3",
 		"ext-mbstring" : "*",
 		"ext-curl" : "*",
