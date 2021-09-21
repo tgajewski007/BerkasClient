@@ -64,6 +64,10 @@ class BerkasClient extends ApiClient
 		header("Location: " . $i->oneTimeUrl);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * @param UploadFileManager $file
+	 * @return ApiResourceSimple
+	 */
 	public function save(UploadFileManager $file)
 	{
 		$url = "/resource";
