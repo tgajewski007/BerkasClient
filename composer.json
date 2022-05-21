@@ -9,13 +9,13 @@
 		}
 	],
 	"require" : {
-		"braga/tools" : "~3.4",
+		"braga/tools" : "~3.5",
 		"php" : ">=7.4",
 		"ext-mbstring" : "*",
 		"ext-curl" : "*",
-		"guzzlehttp/guzzle" : "~7.2.0",
-		"braga/graylogger" : "~1.1.0",
-		"netresearch/jsonmapper" : "~4.0.0"
+		"guzzlehttp/guzzle" : "~7.4",
+		"braga/graylogger" : "~1.1",
+		"netresearch/jsonmapper" : "~4.0"
 	},
 	"autoload" : {
 		"psr-4" : {
