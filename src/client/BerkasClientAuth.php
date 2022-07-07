@@ -29,7 +29,7 @@ class BerkasClientAuth
 	 */
 	public function getJWT()
 	{
-		return $this->createToken($this->isseRealms, $this->clientId, $this->clientSecret);
+		return $this->createTokenForClient($this->isseRealms, $this->clientId, $this->clientSecret);
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 }
