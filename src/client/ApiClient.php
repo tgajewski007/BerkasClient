@@ -1,12 +1,12 @@
 <?php
 namespace braga\berkascli\client;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
+use braga\graylogger\BaseLogger;
 use braga\graylogger\LoggerService;
 use braga\tools\api\types\response\ErrorResponseType;
 use braga\tools\exception\BusinesException;
-use braga\graylogger\BaseLogger;
 class ApiClient
 {
 	// -----------------------------------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class ApiClient
 			$this->response = $this->client->post($this->baseUrl . $url, $options);
 			$this->logResponse($url, $this->response);
 		}
-		catch(ServerException $e)
+		catch(BadResponseException $e)
 		{
 			$this->response = $e->getResponse();
 			$this->logResponse($url, $this->response, LoggerService::ERROR);
@@ -121,7 +121,7 @@ class ApiClient
 			$this->response = $this->client->post($this->baseUrl . $url, $options);
 			$this->logResponse($url, $this->response);
 		}
-		catch(ServerException $e)
+		catch(BadResponseException $e)
 		{
 			$this->response = $e->getResponse();
 			$this->logResponse($url, $this->response, LoggerService::ERROR);
@@ -145,7 +145,7 @@ class ApiClient
 			$this->response = $this->client->put($this->baseUrl . $url, $options);
 			$this->logResponse($url, $this->response);
 		}
-		catch(ServerException $e)
+		catch(BadResponseException $e)
 		{
 			$this->response = $e->getResponse();
 			$this->logResponse($url, $this->response, LoggerService::ERROR);
@@ -167,7 +167,7 @@ class ApiClient
 			$this->response = $this->client->get($this->baseUrl . $url, $options);
 			$this->logResponse($url, $this->response);
 		}
-		catch(ServerException $e)
+		catch(BadResponseException $e)
 		{
 			$this->response = $e->getResponse();
 			$this->logResponse($url, $this->response, LoggerService::ERROR);
@@ -189,7 +189,7 @@ class ApiClient
 			$this->response = $this->client->delete($this->baseUrl . $url, $options);
 			$this->logResponse($url, $this->response);
 		}
-		catch(ServerException $e)
+		catch(BadResponseException $e)
 		{
 			$this->response = $e->getResponse();
 			$this->logResponse($url, $this->response, LoggerService::ERROR);
