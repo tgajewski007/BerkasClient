@@ -1,6 +1,6 @@
 <?php
 namespace braga\berkascli\client;
-use braga\tools\security\OAuthToken;
+use braga\tools\security\OAuth2Token;
 /**
  * Created on 2 kwi 2018 22:56:42
  * error prefix
@@ -10,7 +10,7 @@ use braga\tools\security\OAuthToken;
  */
 class BerkasClientAuth
 {
-	use OAuthToken;
+	use OAuth2Token;
 
 	// -----------------------------------------------------------------------------------------------------------------
 	protected $isseRealms;
