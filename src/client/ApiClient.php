@@ -1,5 +1,6 @@
 <?php
 namespace braga\berkascli\client;
+use braga\tools\benchmark\Benchmark;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
@@ -41,7 +42,7 @@ class ApiClient
 	}
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 * @param Ambigous <string, unknown> $baseUrl
+	 * @param string $baseUrl
 	 */
 	public function setBaseUrl($baseUrl)
 	{
@@ -82,11 +83,12 @@ class ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
 	 * @param string $url
-	 * @param \stdClass $body
+	 * @param $body
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	protected function post($url, $body)
 	{
+		Benchmark::add(__METHOD__);
 		$options = array();
 		$options["headers"] = $this->getAuthHeaders();
 		$options["body"] = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
@@ -111,6 +113,7 @@ class ApiClient
 	 */
 	protected function postMultipart($url, array $query, array $multipart)
 	{
+		Benchmark::add(__METHOD__);
 		$options = array();
 		$options["headers"] = $this->getAuthHeaders();
 		$options["query"] = $query;
@@ -136,6 +139,7 @@ class ApiClient
 	 */
 	protected function put($url, $body)
 	{
+		Benchmark::add(__METHOD__);
 		$options = array();
 		$options["headers"] = $this->getAuthHeaders();
 		$options["body"] = json_encode($body, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
@@ -159,6 +163,7 @@ class ApiClient
 	 */
 	protected function get($url)
 	{
+		Benchmark::add(__METHOD__);
 		$options = array();
 		$options["headers"] = $this->getAuthHeaders();
 		$this->logRequest($url, null);
@@ -181,6 +186,7 @@ class ApiClient
 	 */
 	protected function delete($url)
 	{
+		Benchmark::add(__METHOD__);
 		$options = array();
 		$options["headers"] = $this->getAuthHeaders();
 		$this->logRequest($url, null);
@@ -199,6 +205,7 @@ class ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	protected function logRequest($url, $body)
 	{
+		Benchmark::add(__METHOD__);
 		$context = array();
 		$context["body"] = $body;
 		$context["class"] = static::class;
@@ -207,6 +214,7 @@ class ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	protected function logResponse($url, ResponseInterface $res, $level = LoggerService::INFO)
 	{
+		Benchmark::add(__METHOD__);
 		$context = array();
 		$context["body"] = $res->getBody()->getContents();
 		$context["class"] = static::class;
@@ -217,6 +225,7 @@ class ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	protected function inteprete(ResponseInterface $res, $class, $successCode = 200)
 	{
+		Benchmark::add(__METHOD__);
 		$mapper = new \JsonMapper();
 		$mapper->bStrictNullTypes = false;
 		if($res->getStatusCode() == $successCode)
@@ -236,6 +245,7 @@ class ApiClient
 	// -----------------------------------------------------------------------------------------------------------------
 	protected function intepreteArray(ResponseInterface $res, $class, $successCode = 200)
 	{
+		Benchmark::add(__METHOD__);
 		$mapper = new \JsonMapper();
 		$mapper->bStrictNullTypes = false;
 		if($res->getStatusCode() == $successCode)

@@ -9,7 +9,7 @@
 		}
 	],
 	"require" : {
-		"braga/tools" : "~4.0",
+		"braga/tools" : "~4.1",
 		"guzzlehttp/guzzle" : "~7.5",
 		"braga/graylogger" : "~2.0",
 		"netresearch/jsonmapper" : "~4.0",

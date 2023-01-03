@@ -1,5 +1,6 @@
 <?php
 namespace braga\berkascli\client;
+use braga\tools\benchmark\Benchmark;
 use braga\tools\security\OAuth2Token;
 /**
  * Created on 2 kwi 2018 22:56:42
@@ -29,6 +30,7 @@ class BerkasClientAuth
 	 */
 	public function getJWT()
 	{
+		Benchmark::add(__METHOD__);
 		return $this->createTokenForClient($this->isseRealms, $this->clientId, $this->clientSecret);
 	}
 	// -----------------------------------------------------------------------------------------------------------------

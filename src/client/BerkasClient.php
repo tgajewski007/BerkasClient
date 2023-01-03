@@ -3,6 +3,7 @@ namespace braga\berkascli\client;
 use braga\berkascli\api\request\RegisterDownloadAliasRequest;
 use braga\berkascli\api\types\ApiResource;
 use braga\berkascli\api\types\ApiResourceSimple;
+use braga\tools\benchmark\Benchmark;
 use braga\tools\tools\UploadFileManager;
 use braga\berkascli\api\types\ApiResourceComm;
 use braga\berkascli\api\types\ApiOneTimeResourceUrl;
@@ -23,6 +24,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function resource($idBerkasResource)
 	{
+		Benchmark::add(__METHOD__);
 		$url = "/api.v1/resource/" . $idBerkasResource;
 		$res = $this->get($url);
 		$tmp = $this->inteprete($res, ApiResourceComm::class, 200);
@@ -36,6 +38,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function metaResource($idBerkasResource)
 	{
+		Benchmark::add(__METHOD__);
 		$url = "/api.v1/metaResource/" . $idBerkasResource;
 		$res = $this->get($url);
 		return $this->inteprete($res, ApiResourceSimple::class, 200);
@@ -47,6 +50,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function registerOneTimeUrl($idBerkasResource)
 	{
+		Benchmark::add(__METHOD__);
 		$url = "/api.v1/registerDownloadAlias";
 		$body = new RegisterDownloadAliasRequest();
 		$body->idResource = $idBerkasResource;
@@ -60,6 +64,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function sendDownloadHeaderToBrowser($idBerkasResource)
 	{
+		Benchmark::add(__METHOD__);
 		$i = $this->registerOneTimeUrl($idBerkasResource);
 		header("Location: " . $i->oneTimeUrl);
 	}
@@ -70,6 +75,7 @@ class BerkasClient extends ApiClient
 	 */
 	public function save(UploadFileManager $file)
 	{
+		Benchmark::add(__METHOD__);
 		$url = "/api.v1/resource";
 		$multipart = array();
 
