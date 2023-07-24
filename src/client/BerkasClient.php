@@ -4,6 +4,7 @@ use braga\berkascli\api\request\RegisterDownloadAliasRequest;
 use braga\berkascli\api\types\ApiResource;
 use braga\berkascli\api\types\ApiResourceSimple;
 use braga\tools\benchmark\Benchmark;
+use braga\tools\exception\BragaException;
 use braga\tools\tools\UploadFileManager;
 use braga\berkascli\api\types\ApiResourceComm;
 use braga\berkascli\api\types\ApiOneTimeResourceUrl;
@@ -85,14 +86,21 @@ class BerkasClient extends ApiClient
 		if(empty($file->getContent()))
 		{
 			$tmp["contents"] = file_get_contents($file->getTemporaryFilename());
-			$md5 = md5(file_get_contents($file->getTemporaryFilename()));
 		}
 		else
 		{
 			$tmp["contents"] = $file->getContent();
-			$md5 = md5($file->getContent());
 		}
 		$multipart[] = $tmp;
+		if(empty($tmp["contents"]))
+		{
+			throw new BragaException("BT:10101 Brak zawartości", 10101);
+		}
+		if(empty($tmp["filename"]))
+		{
+			throw new BragaException("BT:10102 Brak nazwy pliku", 10102);
+		}
+		$md5 = md5($tmp["contents"]);
 
 		$query = array();
 		$query["md5"] = $md5;
