@@ -33,9 +33,10 @@
       <path value="$PROJECT_DIR$/vendor/graylog2/gelf-php" />
       <path value="$PROJECT_DIR$/vendor/codercat/jwk-to-pem" />
       <path value="$PROJECT_DIR$/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/vendor/braga/enginerule" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpStanOptionsConfiguration">

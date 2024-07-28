@@ -1,26 +1,24 @@
 {
-	"name" : "braga/berkascli",
-	"description" : "Bilioteka dostępowa do serwisu Berkas",
-	"type" : "library",
-	"authors" : [{
-			"name" : "Tomasz Gajewski",
-			"email" : "tgajewski007@gmail.com",
-			"role" : "design & development "
-		}
-	],
-	"require" : {
-		"braga/tools" : "~4.1",
-		"guzzlehttp/guzzle" : "~7.5",
-		"braga/graylogger" : "~2.0",
-		"netresearch/jsonmapper" : "~4.0",
-		"php" : ">=8.1",
-		"ext-mbstring" : "*",
-		"ext-curl" : "*"
-	},
-	"autoload" : {
-		"psr-4" : {
-			"braga\\berkascli\\" : "src"
-		}
-	},
-	"license" : "MIT"
+  "name": "braga/berkascli",
+  "description": "Bilioteka dostępowa do serwisu Berkas",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Tomasz Gajewski",
+      "email": "tgajewski007@gmail.com",
+      "role": "design & development "
+    }
+  ],
+  "require": {
+    "braga/tools": "~4.3",
+    "php": ">=8.2",
+    "ext-mbstring": "*",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "braga\\berkascli\\": "src"
+    }
+  },
+  "license": "MIT"
 }
