@@ -39,7 +39,7 @@ class ApiClient extends RestClient
 		$options["headers"] = $this->getHeaders();
 		$options["query"] = $query;
 		$options["multipart"] = $multipart;
-		$this->logRequest($this->baseUrl . $url, $options["query"]);
+		$this->logRequest($this->baseUrl . $url, null);
 		try
 		{
 			$this->response = $this->client->post($this->baseUrl . $url, $options);
